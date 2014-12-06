@@ -29,9 +29,7 @@ div.error-debug pre{
 
 <?php
 
-
-
-function debug($var = false, $showHtml = false, $showFrom = true) {
+function debug($var = false,$die = false, $showHtml = false, $showFrom = true) {
     
 
     $root =  dirname(dirname(dirname(__FILE__)));
@@ -52,6 +50,9 @@ function debug($var = false, $showHtml = false, $showFrom = true) {
     }
     echo $var . "\n</pre>\n";
     echo '</div>';
+    if($die){
+        die();
+    }
 
 }
 
