@@ -24,7 +24,10 @@ div.error-ligne strong{
 div.error-debug pre{
     background:#313131;
     padding : 25px;
-} 
+}
+strong.var_name{
+    float: right;
+}
 </style>
 
 <?php
@@ -36,13 +39,13 @@ function debug($var = false,$die = false, $showHtml = false, $showFrom = true) {
     if ($showFrom) {
         $calledFrom = debug_backtrace();
         echo '<div class="error-ligne">';
-        echo '<strong>' . $calledFrom[0]['line'] . '</strong>';
+        echo '<strong>' . $calledFrom[0]['line'] .'</strong>';
         echo substr(str_replace($root, '', $calledFrom[0]['file']), 1);
-        echo '</div>';
+        echo  '<strong class="var_name">'.var_name($var).'</strong></div>';
     
     }
     echo '<div class="error-debug">';
-    echo "\n<pre class=\"cake-debug\">\n";
+    echo "\n<pre>\n";
 
     $var = print_r($var, true);
     if ($showHtml) {
@@ -56,5 +59,13 @@ function debug($var = false,$die = false, $showHtml = false, $showFrom = true) {
 
 }
 
+
+function var_name($var)
+{
+   $defk = 'pas de valeur php';
+   foreach($GLOBALS as $k => $v) 
+    if (!is_array($k) && $v == $var) return($k);
+   return($defk);
+}
 
 ?>
